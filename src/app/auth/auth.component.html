@@ -1,10 +1,10 @@
-<form action="" class="auth">
+<form class="auth" [formGroup]="form" (submit)="onSubmit()">
   <mat-form-field>
-    <input matInput placeholder="Name">
+    <input matInput placeholder="Name" formControlName="name">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Password" type="password">
+    <input matInput placeholder="Password" type="password" formControlName="password">
   </mat-form-field>
 
-  <button mat-raised-button color="primary">Enter</button>
+  <button mat-raised-button color="primary" type="submit">Enter</button>
 </form>

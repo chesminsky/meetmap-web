@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +15,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { AuthComponent } from './auth/auth.component';
 
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -30,10 +33,14 @@ import { CookieService } from 'ngx-cookie-service';
     MatFormFieldModule,
     MatButtonModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
-    CookieService
+    CookieService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
