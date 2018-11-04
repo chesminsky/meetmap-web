@@ -1,13 +1,19 @@
+@import "../scss/variables.scss";
+
 .chat {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 10px;
+    padding: 10px 50px;
     display: flex;
     flex-direction: row;
     display: flex;
     justify-content: center;
+
+    .mat-form-field {
+        width: 100%;
+    }
 
 }
 
@@ -36,15 +42,16 @@
 
 .msg0 {
     min-height: 20px;
-    background: #63ace5;
+    background: lighten($primary, 20%);
     width: 100%;
     border-radius: 10px 10px 10px 0;
     margin: 3px 0;
+    color:white;
 }
 
 .msg1 {
     min-height: 20px;
-    background: #adcbe3;
+    background: ligten($primary, 50%);
     width: 100%;
     border-radius: 10px 10px 0 10px;
     margin: 3px 0;
@@ -83,36 +90,41 @@
 .navbar {
     display: flex;
     flex-direction: row;
-    // width: 100%;
     height: 50px;
     align-items: center;
-    // justify-content: center;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background-color: #2a4d69;
+    background-color: $primary;
 }
 
 .navbar__bars {
-    width: 25%;
-    text-align: center;
+    float: left;
+    text-align: left;
     color: white;
-    font-family: Arial;
     font-size: 20px;
+    padding: 0 20px;
+
+    .mat-icon {
+        cursor: pointer;
+    }
 }
 
 .navbar__logo {
-    width: 60%;
+    width: 100%;
     text-align: center;
     color: white;
-    font-family: Arial;
     text-transform: uppercase;
     font-size: 25px;
     font-weight: bold;
 }
 
 .navbar__userplus {
+    float: right;
+    padding: 0 20px;
     color: white;
     font-size: 25px;
+    cursor: pointer;
 }
+

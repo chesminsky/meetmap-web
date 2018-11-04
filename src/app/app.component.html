@@ -1,6 +1,6 @@
 <div class="navbar">
   <div class="navbar__bars">
-      <i class="fa fa-bars"></i>
+    <mat-icon>menu</mat-icon>
   </div>
   <div class="navbar__logo">
      <p class="navbar__logo-text">
@@ -9,7 +9,7 @@
   </div>
 
   <div class="navbar__userplus">
-          <i class="fa fa-user-plus"></i>
+    <mat-icon>person_add</mat-icon>      
   </div>
 </div>
 
@@ -29,13 +29,9 @@
 </div>
 <form action="" class="chat">
 
-
-
-  <div class="input-field">
-          <input id="last_name" type="text" class="validate" placeholder="Message">
-          
-  </div>
-
-  <button class="chat-submit"><i class="fa fa-comment"></i></button>
+  <mat-form-field floatLabel="never">
+    <input matInput placeholder="Message...">
+    <mat-icon matSuffix>comment</mat-icon>
+  </mat-form-field>
 
 </form>
