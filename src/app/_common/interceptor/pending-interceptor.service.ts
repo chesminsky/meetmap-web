@@ -4,7 +4,7 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { catchError, finalize, map } from 'rxjs/operators';
 
 import { SpinnerService } from '../services/spinner.service';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable()
 export class PendingInterceptor implements HttpInterceptor {
@@ -44,7 +44,7 @@ export class PendingInterceptor implements HttpInterceptor {
                 return event;
             }),
             catchError(error => {
-                return Observable.throw(error);
+                return throwError(error);
             }),
             finalize(() => {
                 if (!this.isIgnored(req.url)) {

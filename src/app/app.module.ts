@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -15,7 +15,8 @@ import {
   MatButtonModule,
   MatIconModule,
   MatListModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { NavbarComponent } from './navbar/navbar.component';
@@ -27,6 +28,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './auth/auth.service';
 import { SpinnerService } from './_common/services/spinner.service';
 import { PendingInterceptor } from './_common/interceptor/pending-interceptor.service';
+import { NotificationsService } from './_common/services/notification.service';
+import { ErrorsHandler } from './_common/interceptor/error-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,7 @@ import { PendingInterceptor } from './_common/interceptor/pending-interceptor.se
     MatIconModule,
     MatListModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
@@ -54,12 +58,19 @@ import { PendingInterceptor } from './_common/interceptor/pending-interceptor.se
     CookieService,
     AuthService,
     SpinnerService,
+    NotificationsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: PendingInterceptor,
       multi: true
     },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorsHandler
+    }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
