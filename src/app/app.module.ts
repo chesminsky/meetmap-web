@@ -10,13 +10,15 @@ import { MatInputModule, MatFormFieldModule, MatButtonModule, MatIconModule, Mat
 import { NavbarComponent } from './navbar/navbar.component';
 import { MapComponent } from './map/map.component';
 import { ContactsComponent } from './contacts/contacts.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     MapComponent,
-    ContactsComponent
+    ContactsComponent,
+    AuthComponent
   ],
   imports: [
     BrowserAnimationsModule,
