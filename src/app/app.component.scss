@@ -1,0 +1,35 @@
+
+.app-layer {
+	position: fixed;
+	z-index: 1001;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	display: none;
+	width: 100%;
+	height: 100%;
+
+	background: transparent;
+
+	&.is-visible {
+		display: block;
+	}
+
+	.mat-spinner {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+
+		margin: -25px -25px 0 0;
+	}
+}
+
+// .mat-snack-bar-container {
+// 	font-size: 16px;
+// }
+
+// .mat-snack-bar-container.error-message {
+// 	background: $color-error;
+// }
