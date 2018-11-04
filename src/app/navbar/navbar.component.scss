@@ -2,15 +2,18 @@
 @import "~src/scss/variables";
 
 .navbar {
-    display: flex;
-    flex-direction: row;
     height: 50px;
-    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     background-color: $primary;
+
+    &:after {
+        display: table;
+        content: '';
+        clear: both;
+    }
 }
 
 .navbar__bars {
@@ -18,7 +21,7 @@
     text-align: left;
     color: white;
     font-size: 20px;
-    padding: 0 20px;
+    padding: 12px 20px;
 
     .mat-icon {
         cursor: pointer;
@@ -32,6 +35,7 @@
     text-transform: uppercase;
     font-size: 25px;
     font-weight: bold;
+    padding: 12px 0;
 
     a {
         color: white !important;
@@ -41,7 +45,7 @@
 
 .navbar__userplus {
     float: right;
-    padding: 0 20px;
+    padding: 12px 20px;
     color: white;
     font-size: 25px;
     cursor: pointer;

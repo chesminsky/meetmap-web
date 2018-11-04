@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Socket } from 'socket.io';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -17,6 +17,9 @@ export class MapComponent implements OnInit {
 
   private socket: Socket;
   private room: string;
+
+  @ViewChild('message')
+  private messageElement: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,5 +56,9 @@ export class MapComponent implements OnInit {
     this.socket.emit('new_message', { message: this.form.get('message').value, room: this.room });
 
     this.form.reset();
+  }
+
+  public isChatActive() {
+    return document.activeElement === this.messageElement.nativeElement;
   }
 }
