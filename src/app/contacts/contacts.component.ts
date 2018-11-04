@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { MatSelectionList } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../_common/services/notification.service';
+import { Socket } from 'socket.io';
 
 @Component({
   selector: 'app-contacts',
@@ -13,7 +14,7 @@ import { NotificationsService } from '../_common/services/notification.service';
 export class ContactsComponent implements OnInit {
 
   public user$: any;
-  private socket: any;
+  private socket: Socket;
 
   @ViewChild('contacts')
   private contactsList: MatSelectionList;

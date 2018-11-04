@@ -3,20 +3,21 @@
       
   </div>
 </div>
+
 <div class="msg">
-
-
   <div class="msg-container">
-      <div class="msg0"> <span class="msg-name">Mike:</span> Ты где?</div>
-      <div class="msg1"> <span class="msg-name">John:</span> Ща буду</div>
+      <div *ngFor="let message of messages" [ngClass]="{ 'msg0': message.sender !== userName, 'msg1': message.sender === userName }">
+        <span class="msg-name">{{message.sender}}: </span>
+        {{message.text}}
+      </div>
   </div>
-
 </div>
-<form action="" class="chat">
+
+<form class="chat" [formGroup]="form" (submit)="onSubmit()">
 
   <mat-form-field floatLabel="never">
-    <input matInput placeholder="Message..." autocomplete="off">
-    <mat-icon matSuffix>comment</mat-icon>
+    <input matInput placeholder="Message..." autocomplete="off" formControlName="message">
+    <mat-icon matSuffix (click)="onSubmit()">comment</mat-icon>
   </mat-form-field>
 
 </form>
