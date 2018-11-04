@@ -5,6 +5,8 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 
+const { io } = window;
+
 const routes: Routes = [{
   path: '',
   redirectTo: '/map',
@@ -15,6 +17,9 @@ const routes: Routes = [{
 }, {
   path: '',
   canActivate: [AuthGuard],
+  resolve: {
+    socket: 'socket'
+  },
   children: [
     {
       path: 'map',
@@ -32,6 +37,12 @@ const routes: Routes = [{
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  providers: [
+    AuthGuard,
+    {
+      provide: 'socket',
+      useValue: () => io.connect('/')
+    }
+  ]
 })
 export class AppRoutingModule { }

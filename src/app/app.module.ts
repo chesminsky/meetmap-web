@@ -30,6 +30,7 @@ import { SpinnerService } from './_common/services/spinner.service';
 import { PendingInterceptor } from './_common/interceptor/pending-interceptor.service';
 import { NotificationsService } from './_common/services/notification.service';
 import { ErrorsHandler } from './_common/interceptor/error-interceptor.service';
+import { UsersService } from './_common/services/users.service';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { ErrorsHandler } from './_common/interceptor/error-interceptor.service';
     AuthService,
     SpinnerService,
     NotificationsService,
+    UsersService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: PendingInterceptor,
