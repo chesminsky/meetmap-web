@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MapComponent } from './map/map.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AuthComponent } from './auth/auth.component';
-
+import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 
 const routes: Routes = [{
   path: '',
@@ -14,6 +14,7 @@ const routes: Routes = [{
   component: AuthComponent
 }, {
   path: '',
+  canActivate: [AuthGuard],
   children: [
     {
       path: 'map',
@@ -23,10 +24,14 @@ const routes: Routes = [{
       component: ContactsComponent
     }
   ]
+}, {
+  path: '**',
+  redirectTo: ''
 }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

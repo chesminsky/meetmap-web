@@ -12,6 +12,8 @@ import { MapComponent } from './map/map.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AuthComponent } from './auth/auth.component';
 
+import { CookieService } from 'ngx-cookie-service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +32,9 @@ import { AuthComponent } from './auth/auth.component';
     MatIconModule,
     MatListModule
   ],
-  providers: [],
+  providers: [
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
