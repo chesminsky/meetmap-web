@@ -4,8 +4,8 @@ import { MapComponent } from './map/map.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
+import { SocketConnectResolver } from './socket-connect.resolver';
 
-const { io } = window;
 
 const routes: Routes = [{
   path: '',
@@ -18,7 +18,7 @@ const routes: Routes = [{
   path: '',
   canActivate: [AuthGuard],
   resolve: {
-    socket: 'socket'
+    socket: SocketConnectResolver
   },
   children: [
     {
@@ -39,10 +39,7 @@ const routes: Routes = [{
   exports: [RouterModule],
   providers: [
     AuthGuard,
-    {
-      provide: 'socket',
-      useValue: () => io.connect('/')
-    }
+    SocketConnectResolver
   ]
 })
 export class AppRoutingModule { }

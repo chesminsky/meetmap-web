@@ -34,17 +34,12 @@ export class MapComponent implements OnInit {
 
     this.socket = this.route.snapshot.data.socket;
 
-    this.socket.emit('change_username', { username: this.userName });
 
-    this.socket.on('connect', () => {
-      // socket connected
-      this.room = this.socket.id;
-      console.log('connected to room ', this.room);
-    });
+    this.room = this.socket.id;
 
     this.socket.on('new_message', (data) => {
 
-      console.log(data);
+      console.log('new message', data);
 
       this.messages.push({
         sender: data.name,
