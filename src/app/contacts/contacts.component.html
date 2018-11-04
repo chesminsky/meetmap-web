@@ -1,0 +1,12 @@
+<div class="contacts">
+  <h3 mat-subheader>Your contacts</h3>
+  <mat-selection-list>
+    <mat-list-option *ngFor="let contact of contacts">
+      {{contact}}
+    </mat-list-option>
+  </mat-selection-list>
+
+  <footer>
+    <button mat-raised-button color="primary">Add to map</button>
+  </footer>
+</div>

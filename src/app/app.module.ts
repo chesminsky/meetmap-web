@@ -6,15 +6,17 @@ import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatInputModule, MatFormFieldModule, MatButtonModule, MatIconModule } from '@angular/material';
+import { MatInputModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatListModule } from '@angular/material';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MapComponent } from './map/map.component';
+import { ContactsComponent } from './contacts/contacts.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    MapComponent
+    MapComponent,
+    ContactsComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -23,7 +25,8 @@ import { MapComponent } from './map/map.component';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
