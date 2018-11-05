@@ -53,9 +53,12 @@ export class MapComponent implements OnInit {
 
   public onSubmit() {
 
-    this.socket.emit('new_message', { message: this.form.get('message').value, room: this.room });
+    const text = this.form.get('message').value;
 
-    this.form.reset();
+    if (text) {
+      this.socket.emit('new_message', { message: text, room: this.room });
+      this.form.reset();
+    }
   }
 
   public isChatActive() {

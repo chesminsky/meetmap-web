@@ -41,9 +41,16 @@
         color: white !important;
         text-decoration: none;
     }
+    
+    &.padded {
+        a {
+            padding-left: 20px;
+        }
+    }
 }
 
-.navbar__userplus {
+
+.navbar__icons {
     float: right;
     padding: 12px 20px;
     color: white;
@@ -52,6 +59,9 @@
 
     a {
         color: white !important;
+        &:last-child {
+            margin-left: 10px;
+        }
     }
 }
 

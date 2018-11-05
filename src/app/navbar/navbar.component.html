@@ -1,15 +1,18 @@
 <div class="navbar">
-  <div class="navbar__bars">
+  <div class="navbar__bars" *ngIf="isAuthorized">
     <mat-icon>menu</mat-icon>
   </div>
-  <div class="navbar__userplus">
+  <div class="navbar__icons" *ngIf="isAuthorized">
+    <a routerLink="/notifications">
+      <mat-icon>notifications</mat-icon>
+    </a>
     <a routerLink="/contacts">
       <mat-icon>person_add</mat-icon>
     </a>
   </div>
-  <div class="navbar__logo">
+  <div class="navbar__logo" [ngClass]="{'padded': isAuthorized}">
     <a routerLink="/map">
-      meeetmap
+      meetmap
     </a>
   </div>
 </div>
