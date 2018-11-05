@@ -1,5 +1,9 @@
-<div class="contacts">
-  <h3 mat-subheader>Your contacts</h3>
+<div class="main">
+
+  <header class="main__header">
+    <h3>Your contacts</h3>
+  </header>
+
   <mat-selection-list #contacts>
     <mat-list-option *ngFor="let contact of (user$ | async)?.contacts" [value]="contact">
       {{contact}}

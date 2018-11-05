@@ -5,6 +5,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { SocketConnectResolver } from './socket-connect.resolver';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 const routes: Routes = [{
@@ -27,6 +28,9 @@ const routes: Routes = [{
     }, {
       path: 'contacts',
       component: ContactsComponent
+    }, {
+      path: 'notifications',
+      component: NotificationsComponent
     }
   ]
 }, {

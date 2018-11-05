@@ -1,0 +1,25 @@
+@import "~src/scss/variables";
+
+.icons {
+    float: right;
+
+    display: block;
+    width: 100%;
+    text-align: right;
+    height: 22px;
+
+    .mat-icon {
+        margin-left: 20px;
+        font-size: 22px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .accept {
+        color: $accent;
+    }
+
+    .deny {
+        color: #777;
+    }
+}

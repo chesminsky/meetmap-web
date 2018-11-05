@@ -31,6 +31,7 @@ import { PendingInterceptor } from './_common/interceptor/pending-interceptor.se
 import { NotificationsService } from './_common/services/notification.service';
 import { ErrorsHandler } from './_common/interceptor/error-interceptor.service';
 import { UsersService } from './_common/services/users.service';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { UsersService } from './_common/services/users.service';
     NavbarComponent,
     MapComponent,
     ContactsComponent,
-    AuthComponent
+    AuthComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserAnimationsModule,

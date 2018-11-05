@@ -58,10 +58,24 @@
     cursor: pointer;
 
     a {
+        display: inline-block;
+        position: relative;
         color: white !important;
+        text-decoration: none;
         &:last-child {
             margin-left: 10px;
         }
     }
 }
 
+
+.notifications-counter {
+    background-color: $error;
+    font-size: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px 4px;
+    border-radius: 20px;
+    font-style: normal;
+}

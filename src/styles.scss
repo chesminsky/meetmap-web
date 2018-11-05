@@ -11,6 +11,22 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.main {
+    padding-top: 50px;
+}
+
+.main__header {
+    padding: 0 15px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+
+    h3 {
+        margin: 0;
+    }
+}
+
+// override
+
 .mat-snack-bar-container.error-message {
-	background: $error;
+	background: $warn;
 }
