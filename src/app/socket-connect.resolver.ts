@@ -2,12 +2,14 @@ import { Socket } from 'socket.io';
 import { CookieService } from 'ngx-cookie-service';
 import { Resolve } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { NotificationsService } from './notifications/notifications.service';
 
 @Injectable()
 export class SocketConnectResolver implements Resolve<Socket> {
 
   constructor(
-    private cookies: CookieService
+    private cookies: CookieService,
+    private notifications: NotificationsService
   ) {}
 
   async resolve() {
@@ -24,6 +26,8 @@ export class SocketConnectResolver implements Resolve<Socket> {
     }));
 
     await promiseConnect();
+
+    this.notifications.initialize(socket);
 
     return socket;
   }

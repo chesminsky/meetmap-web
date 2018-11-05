@@ -25,8 +25,7 @@ export class MapComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private cookies: CookieService,
-    private notifications: NotificationsService
+    private cookies: CookieService
   ) { }
 
   ngOnInit() {
@@ -40,7 +39,9 @@ export class MapComponent implements OnInit {
     this.socket = this.route.snapshot.data.socket;
 
 
-    this.room = this.socket.id;
+    this.room =  this.route.snapshot.queryParamMap.get('room') || this.socket.id;
+
+    this.socket.emit('change_room', { socketId: this.room });
 
     this.socket.on('new_message', (data) => {
 
@@ -51,8 +52,6 @@ export class MapComponent implements OnInit {
         text: data.message
       });
     });
-
-    this.notifications.initialize(this.socket);
   }
 
   public onSubmit() {
