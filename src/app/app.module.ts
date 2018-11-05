@@ -28,10 +28,11 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './auth/auth.service';
 import { SpinnerService } from './_common/services/spinner.service';
 import { PendingInterceptor } from './_common/interceptor/pending-interceptor.service';
-import { NotificationsService } from './_common/services/notification.service';
+import { MessagesService } from './_common/services/messages.service';
 import { ErrorsHandler } from './_common/interceptor/error-interceptor.service';
 import { UsersService } from './_common/services/users.service';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { NotificationsService } from './notifications/notifications.service';
 
 @NgModule({
   declarations: [
@@ -61,8 +62,9 @@ import { NotificationsComponent } from './notifications/notifications.component'
     CookieService,
     AuthService,
     SpinnerService,
-    NotificationsService,
+    MessagesService,
     UsersService,
+    NotificationsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: PendingInterceptor,

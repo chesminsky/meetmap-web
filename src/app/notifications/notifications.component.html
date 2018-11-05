@@ -5,13 +5,13 @@
   </header>
 
   <mat-list>
-    <mat-list-item>
+    <mat-list-item *ngFor="let item of list; index as i;">
       <span class="icons">
-        <mat-icon class="accept">done</mat-icon>
-        <mat-icon class="deny">close</mat-icon>
+        <mat-icon class="accept" (click)="accept(i)">done</mat-icon>
+        <mat-icon class="deny" (click)="deny(i)">close</mat-icon>
       </span>
       <span matLine>
-        Pepper
+        {{item.from}}
       </span>
     </mat-list-item>
   </mat-list>

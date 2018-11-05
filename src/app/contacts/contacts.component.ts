@@ -3,7 +3,7 @@ import { UsersService } from '../_common/services/users.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MatSelectionList } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../_common/services/notification.service';
+import { MessagesService } from '../_common/services/messages.service';
 import { Socket } from 'socket.io';
 
 @Component({
@@ -23,7 +23,7 @@ export class ContactsComponent implements OnInit {
     private contactsService: UsersService,
     private cookies: CookieService,
     private route: ActivatedRoute,
-    private notification: NotificationsService,
+    private messages: MessagesService,
     private router: Router
   ) { }
 
@@ -42,7 +42,7 @@ export class ContactsComponent implements OnInit {
     selected.forEach((c) => {
       this.socket.emit('invite', {name: c});
 
-      this.notification.showMessage('Приглашение на карту отправлено');
+      this.messages.showMessage('Приглашение на карту отправлено');
 
       this.router.navigate(['map']);
     });

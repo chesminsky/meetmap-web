@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,8 @@ import { AuthService } from '../auth/auth.service';
 export class NavbarComponent implements OnInit {
 
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private notifications: NotificationsService
   ) { }
 
   ngOnInit() {
@@ -17,6 +19,10 @@ export class NavbarComponent implements OnInit {
 
   get isAuthorized() {
     return this.auth.isAuthorized();
+  }
+
+  get notificationsLength() {
+    return this.notifications.list.length;
   }
 
 }

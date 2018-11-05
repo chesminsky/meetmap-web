@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationsService } from './notifications.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -7,9 +9,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationsComponent implements OnInit {
 
-  constructor() { }
+  public list: Array<{ from: string; room: string; }>;
+
+  constructor(
+    private notifications: NotificationsService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.list = this.notifications.list;
+  }
+
+  public accept(index: number) {
+
+    const room = this.list[index].room;
+    this.list.splice(index, 1);
+
+    this.router.navigate(['map'], {
+      queryParams: {
+        room
+      }
+    });
+  }
+
+  public deny(index: number) {
+    this.list.splice(index, 1);
   }
 
 }

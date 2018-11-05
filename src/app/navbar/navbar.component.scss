@@ -8,6 +8,7 @@
     left: 0;
     right: 0;
     background-color: $primary;
+    z-index: 3;
 
     &:after {
         display: table;
@@ -44,7 +45,7 @@
     
     &.padded {
         a {
-            padding-left: 20px;
+            padding-left: 10px;
         }
     }
 }
