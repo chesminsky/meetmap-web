@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 
-import { CookieService } from 'ngx-cookie-service';
+import { UserService } from '../_common/services/user.service';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
 
     constructor(
         private router: Router,
-        private cookies: CookieService
+        private userService: UserService
     ) { }
 
-    canActivate(): boolean {
+    async canActivate(): Promise<boolean> {
 
-        const userName = this.cookies.get('auth');
+        const user = await this.userService.get().toPromise();
 
-        if (!userName) {
+        if (!user) {
             this.router.navigate(['auth']);
             return false;
         }
+
+        this.userService.model = user;
+
         return true;
     }
 }

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
+import { UserService } from '../_common/services/user.service';
 
 @Injectable()
 export class AuthService {
 
     constructor(
         private http: HttpClient,
-        private cookies: CookieService
+        private userService: UserService
     ) { }
 
     login(username: string, password: string) {
@@ -15,6 +15,6 @@ export class AuthService {
     }
 
     isAuthorized() {
-        return this.cookies.get('auth');
+        return this.userService.model;
     }
 }

@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Socket } from 'socket.io';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
 import { NotificationsService } from '../notifications/notifications.service';
+import { UserService } from '../_common/services/user.service';
 
 @Component({
   selector: 'app-map',
@@ -25,12 +25,12 @@ export class MapComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private cookies: CookieService
+    private userService: UserService
   ) { }
 
   ngOnInit() {
 
-    this.userName = this.cookies.get('auth');
+    this.userName = this.userService.model.name;
 
     this.form = this.fb.group({
       message: ''

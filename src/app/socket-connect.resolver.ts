@@ -1,22 +1,22 @@
 import { Socket } from 'socket.io';
-import { CookieService } from 'ngx-cookie-service';
 import { Resolve } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { NotificationsService } from './notifications/notifications.service';
+import { UserService } from './_common/services/user.service';
 
 @Injectable()
 export class SocketConnectResolver implements Resolve<Socket> {
 
   constructor(
-    private cookies: CookieService,
-    private notifications: NotificationsService
+    private notifications: NotificationsService,
+    private userService: UserService
   ) {}
 
   async resolve() {
 
     const { io } = window;
 
-    const userName = this.cookies.get('auth');
+    const userName = this.userService.model.name;
     const socket: Socket = io.connect('/');
     socket.emit('change_username', { username: userName });
 

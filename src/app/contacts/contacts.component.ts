@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UsersService } from '../_common/services/users.service';
-import { CookieService } from 'ngx-cookie-service';
+import { ContactsService } from '../_common/services/contacts.service';
 import { MatSelectionList } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessagesService } from '../_common/services/messages.service';
 import { Socket } from 'socket.io';
+import { UserService } from '../_common/services/user.service';
 
 @Component({
   selector: 'app-contacts',
@@ -20,16 +20,16 @@ export class ContactsComponent implements OnInit {
   private contactsList: MatSelectionList;
 
   constructor(
-    private contactsService: UsersService,
-    private cookies: CookieService,
+    private contactsService: ContactsService,
     private route: ActivatedRoute,
     private messages: MessagesService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
 
-    const userName = this.cookies.get('auth');
+    const userName = this.userService.model.name;
 
     this.user$ = this.contactsService.get(userName);
 
