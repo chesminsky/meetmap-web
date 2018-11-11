@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 })
 export class NotificationsComponent implements OnInit {
 
-  public list: Array<{ from: string; room: string; }>;
+  public listToFriends: Array<AppNotification>;
+  public listToMap: Array<AppNotification>;
 
   constructor(
     private notifications: NotificationsService,
@@ -17,13 +18,14 @@ export class NotificationsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.list = this.notifications.list;
+    this.listToFriends = this.notifications.list.filter((n) => n.type === 'friend');
+    this.listToMap = this.notifications.list.filter((n) => n.type === 'map');
   }
 
-  public accept(index: number) {
+  public acceptMap(index: number) {
 
-    const room = this.list[index].room;
-    this.list.splice(index, 1);
+    const room = this.listToMap[index].room;
+    this.listToMap.splice(index, 1);
 
     this.router.navigate(['map'], {
       queryParams: {
@@ -32,8 +34,16 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
-  public deny(index: number) {
-    this.list.splice(index, 1);
+  public denyMap(index: number) {
+    this.listToMap.splice(index, 1);
+  }
+
+  public acceptFriend(index: number) {
+    this.listToFriends.splice(index, 1);
+  }
+
+  public denyFriend(index: number) {
+    this.listToFriends.splice(index, 1);
   }
 
 }

@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'socket.io';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class NotificationsService {
 
-    public list: Array<{ from: string; room: string; }> = [];
+    public list: Array<AppNotification> = [];
 
     private initialized = false;
 
-    constructor() { }
+    constructor(
+        private http: HttpClient
+    ) { }
+
+    public load() {
+        return this.http.get<Array<AppNotification>>('/api/notifications');
+    }
 
     initialize(socket: Socket) {
 
@@ -19,13 +26,6 @@ export class NotificationsService {
                     from: data.name,
                     room: data.socketId
                 });
-               // alert('invitation from ' + data.name + ' room changed from ' + room + ' to ' + data.socketId);
-
-                // $('#friend').html(data.name);
-
-                // roomToChange = data.socketId;
-
-                // modal.open();
             });
         }
 

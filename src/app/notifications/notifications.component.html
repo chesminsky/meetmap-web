@@ -5,14 +5,31 @@
   </header>
 
   <mat-list>
-    <mat-list-item *ngFor="let item of list; index as i;">
+    <mat-list-item *ngFor="let item of listToMap; index as i;">
       <span class="icons">
-        <mat-icon class="accept" (click)="accept(i)">done</mat-icon>
-        <mat-icon class="deny" (click)="deny(i)">close</mat-icon>
+        <mat-icon class="accept" (click)="acceptMap(i)">done</mat-icon>
+        <mat-icon class="deny" (click)="denyMap(i)">close</mat-icon>
       </span>
       <span matLine>
         {{item.from}}
       </span>
     </mat-list-item>
   </mat-list>
+
+
+  <header class="main__header">
+      <h3>Invitations to friends</h3>
+    </header>
+  
+    <mat-list>
+      <mat-list-item *ngFor="let item of listToFriends; index as i;">
+        <span class="icons">
+          <mat-icon class="accept" (click)="acceptFriend(i)">done</mat-icon>
+          <mat-icon class="deny" (click)="denyFriend(i)">close</mat-icon>
+        </span>
+        <span matLine>
+          {{item.fromName}}
+        </span>
+      </mat-list-item>
+    </mat-list>
 </div>

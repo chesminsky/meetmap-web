@@ -6,6 +6,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { SocketConnectResolver } from './socket-connect.resolver';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { NotificationsResolver } from './notifications.resolver';
 
 
 const routes: Routes = [{
@@ -19,7 +20,8 @@ const routes: Routes = [{
   path: '',
   canActivate: [AuthGuard],
   resolve: {
-    socket: SocketConnectResolver
+    socket: SocketConnectResolver,
+    notifications: NotificationsResolver
   },
   children: [
     {
@@ -43,7 +45,8 @@ const routes: Routes = [{
   exports: [RouterModule],
   providers: [
     AuthGuard,
-    SocketConnectResolver
+    SocketConnectResolver,
+    NotificationsResolver
   ]
 })
 export class AppRoutingModule { }
