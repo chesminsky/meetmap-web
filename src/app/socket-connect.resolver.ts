@@ -27,6 +27,9 @@ export class SocketConnectResolver implements Resolve<Socket> {
 
     await promiseConnect();
 
+    this.userService.model.room = socket.id;
+    await this.userService.update(this.userService.model).toPromise();
+
     this.notifications.initialize(socket);
 
     return socket;

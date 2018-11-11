@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class UserService {
 
-    public model
+    public model;
 
     constructor(
         private http: HttpClient
@@ -12,6 +12,10 @@ export class UserService {
 
     get() {
         return this.http.get('/api/user');
+    }
+
+    update(user) {
+        return this.http.put('/api/user', user);
     }
 
 
