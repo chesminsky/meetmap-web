@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationsService } from './notifications.service';
+import { NotificationsService } from '../_common/services/notifications.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class NotificationsComponent implements OnInit {
 
-  public list: Array<{ from: string; room: string; }>;
+  public list: Array<AppNotification>;
 
   constructor(
     private notifications: NotificationsService,

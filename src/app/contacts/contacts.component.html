@@ -5,8 +5,8 @@
   </header>
 
   <mat-selection-list #contacts>
-    <mat-list-option *ngFor="let contact of (user$ | async)?.contacts" [value]="contact">
-      {{contact}}
+    <mat-list-option *ngFor="let contact of (users$ | async)" [value]="contact._id">
+      {{contact.name}}
     </mat-list-option>
   </mat-selection-list>
 

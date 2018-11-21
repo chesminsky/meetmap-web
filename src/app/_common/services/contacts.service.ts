@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
 
 @Injectable()
 export class ContactsService {
@@ -8,12 +10,12 @@ export class ContactsService {
         private http: HttpClient
     ) { }
 
-    get(name: string) {
-        return this.http.get('/api/users/' + name);
+    get(id: string) {
+        return this.http.get<User>('/api/users/' + id);
     }
 
     getAll() {
-        return this.http.get('/api/users');
+        return this.http.get<Array<User>>('/api/users');
     }
 
 

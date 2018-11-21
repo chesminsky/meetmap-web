@@ -31,7 +31,7 @@ import { MessagesService } from './_common/services/messages.service';
 import { ErrorsHandler } from './_common/interceptor/error-interceptor.service';
 import { ContactsService } from './_common/services/contacts.service';
 import { NotificationsComponent } from './notifications/notifications.component';
-import { NotificationsService } from './notifications/notifications.service';
+import { NotificationsService } from './_common/services/notifications.service';
 import { UserService } from './_common/services/user.service';
 
 @NgModule({

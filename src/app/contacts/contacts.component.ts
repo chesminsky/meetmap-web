@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MessagesService } from '../_common/services/messages.service';
 import { Socket } from 'socket.io';
 import { UserService } from '../_common/services/user.service';
+import { Observable } from 'rxjs';
+import { NotificationsService } from '../_common/services/notifications.service';
 
 @Component({
   selector: 'app-contacts',
@@ -13,7 +15,7 @@ import { UserService } from '../_common/services/user.service';
 })
 export class ContactsComponent implements OnInit {
 
-  public user$: any;
+  public users$: Observable<Array<User>>;
   private socket: Socket;
 
   @ViewChild('contacts')
@@ -24,14 +26,15 @@ export class ContactsComponent implements OnInit {
     private route: ActivatedRoute,
     private messages: MessagesService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private notifications: NotificationsService
   ) { }
 
   ngOnInit() {
 
     const userName = this.userService.model.name;
 
-    this.user$ = this.contactsService.get(userName);
+    this.users$ = this.contactsService.getAll();
 
     this.socket = this.route.snapshot.data.socket;
   }
@@ -39,12 +42,16 @@ export class ContactsComponent implements OnInit {
   public addToMap() {
     const selected = this.contactsList.selectedOptions.selected.map((o) => o.value);
 
-    selected.forEach((c) => {
-      this.socket.emit('invite', {name: c});
+    selected.forEach((id) => {
 
-      this.messages.showMessage('Приглашение на карту отправлено');
+      this.notifications.create({
+        room: this.socket.id,
+        userId: id
+      }).toPromise().then(() => {
+        this.messages.showMessage('Приглашение на карту отправлено');
 
-      this.router.navigate(['map']);
+        this.router.navigate(['map']);
+      });
     });
   }
 

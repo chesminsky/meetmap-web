@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Socket } from 'socket.io';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { NotificationsService } from '../notifications/notifications.service';
+import { NotificationsService } from '../_common/services/notifications.service';
 import { UserService } from '../_common/services/user.service';
 
 @Component({

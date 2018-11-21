@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
 import { Resolve } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { NotificationsService } from './notifications/notifications.service';
+import { NotificationsService } from './_common/services/notifications.service';
 import { UserService } from './_common/services/user.service';
 
 @Injectable()
@@ -27,7 +27,7 @@ export class SocketConnectResolver implements Resolve<Socket> {
 
     await promiseConnect();
 
-    this.notifications.initialize(socket);
+    await this.notifications.initialize(socket);
 
     return socket;
   }
