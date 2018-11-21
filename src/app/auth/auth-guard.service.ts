@@ -13,14 +13,18 @@ export class AuthGuardService implements CanActivate {
 
     async canActivate(): Promise<boolean> {
 
-        const user = await this.userService.get().toPromise();
+        try {
+            const user = await this.userService.get().toPromise();
+            if (!user) {
+                this.router.navigate(['auth']);
+                return false;
+            }
 
-        if (!user) {
+            this.userService.model = user;
+        } catch (e) {
             this.router.navigate(['auth']);
             return false;
         }
-
-        this.userService.model = user;
 
         return true;
     }

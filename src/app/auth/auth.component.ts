@@ -20,7 +20,7 @@ export class AuthComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      name: '',
+      username: '',
       password: ''
     });
   }
@@ -28,7 +28,7 @@ export class AuthComponent implements OnInit {
   public onSubmit() {
 
     this.auth.login(
-      this.form.get('name').value,
+      this.form.get('username').value,
       this.form.get('password').value
     ).subscribe(() => {
       this.router.navigate(['map']);

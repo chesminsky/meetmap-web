@@ -11,7 +11,7 @@ export class AuthService {
     ) { }
 
     login(username: string, password: string) {
-        return this.http.post('/auth', { username, password});
+        return this.http.post('/auth/local', { username, password});
     }
 
     isAuthorized() {
