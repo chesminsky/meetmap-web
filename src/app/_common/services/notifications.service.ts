@@ -15,13 +15,16 @@ export class NotificationsService {
 
     public async initialize(socket: Socket) {
 
-        if (!this.initialized) {
-            socket.on('invitation', (obj: AppNotification) => {
+        const updateList = () => {
+            return this.getAll().toPromise().then((arr) => this.list = arr)
+        }
 
-                this.list.push(obj);
+        if (!this.initialized) {
+            socket.on('invitation', () => {
+                updateList();
             });
 
-            return this.getAll().toPromise().then((arr) => this.list = arr);
+            return updateList();
         }
 
     }
