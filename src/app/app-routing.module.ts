@@ -25,10 +25,16 @@ const routes: Routes = [{
     {
       path: 'map',
       component: MapComponent
-    }, {
+    },
+    {
+      path: 'map/:room',
+      component: MapComponent
+    },
+    {
       path: 'contacts',
       component: ContactsComponent
-    }, {
+    },
+    {
       path: 'notifications',
       component: NotificationsComponent
     }

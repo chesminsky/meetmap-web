@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Socket } from 'socket.io';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -15,38 +15,42 @@ export class MapComponent implements OnInit {
   public form: FormGroup;
   public messages: Array<{sender: string; text: string; }> = [];
   public userName: string;
+  public room: string;
 
   private socket: Socket;
-  private room: string;
 
   @ViewChild('message')
   private messageElement: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private fb: FormBuilder,
     private userService: UserService
   ) { }
 
   ngOnInit() {
 
+    this.socket = this.route.snapshot.data.socket;
+    const room = this.route.snapshot.paramMap.get('room');
+
+    if (!room) {
+      this.router.navigate([this.socket.id], {
+        relativeTo: this.route
+      });
+
+      return;
+    }
+
+    this.room = room;
     this.userName = this.userService.model.name;
+    this.socket.emit('change_room', { room });
 
     this.form = this.fb.group({
       message: ''
     });
 
-    this.socket = this.route.snapshot.data.socket;
-
-
-    this.room =  this.route.snapshot.queryParamMap.get('room') || this.socket.id;
-
-    this.socket.emit('change_room', { socketId: this.room });
-
     this.socket.on('new_message', (data) => {
-
-      console.log('new message', data);
-
       this.messages.push({
         sender: data.name,
         text: data.message
@@ -65,6 +69,9 @@ export class MapComponent implements OnInit {
   }
 
   public isChatActive() {
+    if (!this.messageElement) {
+      return false;
+    }
     return document.activeElement === this.messageElement.nativeElement;
   }
 }
