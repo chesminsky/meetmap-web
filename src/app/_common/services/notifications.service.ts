@@ -35,6 +35,6 @@ export class NotificationsService {
     }
 
     public put(obj: AppNotification) {
-        return this.http.post<Array<AppNotification>>(`/api/notifications/${obj._id}`, obj);
+        return this.http.put<Array<AppNotification>>(`/api/notifications/${obj._id}`, obj);
     }
 }

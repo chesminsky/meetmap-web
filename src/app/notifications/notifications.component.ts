@@ -22,18 +22,20 @@ export class NotificationsComponent implements OnInit {
 
   public accept(index: number) {
 
-    const room = this.list[index].room;
+    const obj: AppNotification = this.list[index];
+    const room = obj.room;
     this.list.splice(index, 1);
 
-    this.router.navigate(['map'], {
-      queryParams: {
-        room
-      }
+    this.notifications.put(Object.assign(obj, {accepted: true})).toPromise().then(() => {
+      this.router.navigate(['map', room]);
     });
   }
 
   public deny(index: number) {
-    this.list.splice(index, 1);
+    const obj: AppNotification = this.list[index];
+    this.notifications.put(Object.assign(obj, {accepted: false})).toPromise().then(() => {
+      this.list.splice(index, 1);
+    });
   }
 
 }
