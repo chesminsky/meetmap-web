@@ -4,6 +4,15 @@ import { Socket } from 'socket.io';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NotificationsService } from '../_common/services/notifications.service';
 import { UserService } from '../_common/services/user.service';
+import {} from 'googlemaps';
+
+interface GpsEvent {
+  name: string;
+  pos: {
+    lon: number;
+    lat: number;
+  }
+}
 
 @Component({
   selector: 'app-map',
@@ -21,6 +30,10 @@ export class MapComponent implements OnInit {
 
   @ViewChild('message')
   private messageElement: ElementRef;
+
+  private map: google.maps.Map;
+
+  private markers: { [key: string]: google.maps.Marker } = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -60,6 +73,18 @@ export class MapComponent implements OnInit {
       });
     });
 
+    this.socket.on('gps', (data: GpsEvent) => {
+
+      if (this.markers[data.name]) {
+        this.markers[data.name].setMap(null);
+      }
+
+      this.markers[data.name] = new window.google.maps.Marker({
+        position: data.pos,
+        map: this.map
+      });
+    });
+
     setTimeout(() => {
       this.initMap();
     });
@@ -85,9 +110,12 @@ export class MapComponent implements OnInit {
   private initMap() {
 
 
-    new window.google.maps.Map(this.mapRef.nativeElement, {
-      center: { lat: -34.397, lng: 150.644 },
-      zoom: 8
+    this.map = new window.google.maps.Map(this.mapRef.nativeElement, {
+      zoom: 17,
+      center: {
+        lat: 59.921575,
+        lng: 30.351615
+      }
     });
 
   }

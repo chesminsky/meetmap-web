@@ -1,3 +1,4 @@
+declare module 'googlemaps';
 
 interface Window {
     io;
