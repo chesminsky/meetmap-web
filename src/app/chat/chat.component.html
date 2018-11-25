@@ -1,0 +1,19 @@
+<div class="main" *ngIf="room">
+
+  <div class="msg-container">
+    <div *ngFor="let message of messages" [ngClass]="{ 'msg0': message.sender !== userName, 'msg1': message.sender === userName }">
+      <span class="msg-name">{{message.sender}}: </span>
+      {{message.text}}
+    </div>
+  </div>
+
+
+  <form class="chat" [formGroup]="form" (submit)="onSubmit()">
+
+    <mat-form-field floatLabel="never">
+      <input matInput placeholder="Message..." autocomplete="off" formControlName="message" #message>
+    </mat-form-field>
+
+  </form>
+
+</div>

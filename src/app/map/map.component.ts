@@ -27,18 +27,12 @@ export class MapComponent implements OnInit {
   public room: string;
 
   private socket: Socket;
-
-  @ViewChild('message')
-  private messageElement: ElementRef;
-
   private map: google.maps.Map;
-
   private markers: { [key: string]: google.maps.Marker } = {};
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder,
     private userService: UserService
   ) { }
 
@@ -62,17 +56,6 @@ export class MapComponent implements OnInit {
     this.userName = this.userService.model.name;
     this.socket.emit('change_room', { room });
 
-    this.form = this.fb.group({
-      message: ''
-    });
-
-    this.socket.on('new_message', (data) => {
-      this.messages.push({
-        sender: data.name,
-        text: data.message
-      });
-    });
-
     this.socket.on('gps', (data: GpsEvent) => {
 
       if (this.markers[data.name]) {
@@ -90,25 +73,11 @@ export class MapComponent implements OnInit {
     });
   }
 
-  public onSubmit() {
-
-    const text = this.form.get('message').value;
-
-    if (text) {
-      this.socket.emit('new_message', { message: text, room: this.room });
-      this.form.reset();
-    }
-  }
-
-  public isChatActive() {
-    if (!this.messageElement) {
-      return false;
-    }
-    return document.activeElement === this.messageElement.nativeElement;
+  public goToChat() {
+    this.router.navigate(['chat', this.room]);
   }
 
   private initMap() {
-
 
     this.map = new window.google.maps.Map(this.mapRef.nativeElement, {
       zoom: 17,

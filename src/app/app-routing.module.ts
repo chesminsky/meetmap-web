@@ -6,6 +6,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { SocketConnectResolver } from './socket-connect.resolver';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 const routes: Routes = [{
@@ -29,6 +30,10 @@ const routes: Routes = [{
     {
       path: 'map/:room',
       component: MapComponent
+    },
+    {
+      path: 'chat/:room',
+      component: ChatComponent
     },
     {
       path: 'contacts',

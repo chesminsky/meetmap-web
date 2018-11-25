@@ -33,6 +33,7 @@ import { ContactsService } from './_common/services/contacts.service';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { NotificationsService } from './_common/services/notifications.service';
 import { UserService } from './_common/services/user.service';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { UserService } from './_common/services/user.service';
     MapComponent,
     ContactsComponent,
     AuthComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    ChatComponent
   ],
   imports: [
     BrowserAnimationsModule,
