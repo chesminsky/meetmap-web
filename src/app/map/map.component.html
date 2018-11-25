@@ -3,17 +3,19 @@
     <div class="map" #map>
 
     </div>
+    <div class="marker" *ngFor="let friend of getFrends()" [ngStyle]="{transform: getMarkerRotation(friend)}">
+      {{ getLiteral(friend) }}
+    </div>
   </div>
 
   <div class="legend">
     <h3>Meetmapers:</h3>
     <ul>
+      <li>
+        {{userName}} (you)
+      </li>
       <li *ngFor="let friend of getFrends()">
-        {{ friend }}
-        <span *ngIf="friend === userName">(you)</span>
-        <span *ngIf="friend !== userName">
-          , distance: {{ getDistance(friend) }} m.
-        </span>
+        {{ friend }}, distance: {{ getDistance(friend) }} m.
       </li>
     </ul>
   </div>

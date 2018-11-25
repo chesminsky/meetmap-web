@@ -50,3 +50,18 @@
         margin-bottom: 5px;
     }
 }
+
+.marker {
+    text-align: center;
+    display: block;
+    width: 30px;
+    background: $accent;
+    // color: white;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    margin-left: -15px;
+    line-height: 30px;
+}

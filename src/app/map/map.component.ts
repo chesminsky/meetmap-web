@@ -120,8 +120,12 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
+  public getLiteral(name: string) {
+    return name.toUpperCase().substr(0,1);
+  }
+
   public getFrends() {
-    return Object.keys(this.markers);
+    return Object.keys(this.markers).filter((n) => n!== this.userName);
   }
 
   public getDistance(name) {
@@ -131,6 +135,16 @@ export class MapComponent implements OnInit, OnDestroy {
       this.markers[name].getPosition().lat(),
       this.markers[name].getPosition().lng()
     )
+  }
+
+  public getMarkerRotation(name) {
+    const deg = this.getBearing(
+      this.markers[this.userName].getPosition().lat(),
+      this.markers[this.userName].getPosition().lng(),
+      this.markers[name].getPosition().lat(),
+      this.markers[name].getPosition().lng()
+    );
+    return `rotate(${deg} deg)`;
   }
 
 
