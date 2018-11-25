@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { NotificationsService } from '../_common/services/notifications.service';
 import { UserService } from '../_common/services/user.service';
 import { } from 'googlemaps';
+import { GeoService } from './geo.service';
 
 interface GpsEvent {
   name: string;
@@ -25,7 +26,6 @@ export class MapComponent implements OnInit, OnDestroy {
   public messages: Array<{ sender: string; text: string; }> = [];
   public userName: string;
   public room: string;
-  private watchId: number;
 
   private socket: Socket;
   private map: google.maps.Map;
@@ -34,7 +34,8 @@ export class MapComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private geo: GeoService
   ) { }
 
   @ViewChild('map')
@@ -75,7 +76,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.stopWatching();
+    this.geo.stopWatching();
   }
 
   public goToChat() {
@@ -92,13 +93,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
   }
 
-  private watchPosition(success: PositionCallback, error: PositionErrorCallback, opts: PositionOptions): void {
-    this.watchId = navigator.geolocation.watchPosition(success, error, opts);
-  }
-
-  private stopWatching(): void {
-    navigator.geolocation.clearWatch(this.watchId);
-  }
 
   private listenGeolocation(): void {
     const success = (position: Position) => {
@@ -118,11 +112,7 @@ export class MapComponent implements OnInit, OnDestroy {
       this.map.setCenter(pos);
     };
 
-    const error = () => {
-      console.error('Error: No GPS data.');
-    };
-
-    this.watchPosition(success, error, {
+    this.geo.watchPosition(success, {
       timeout: 3000,
       enableHighAccuracy: true
     });

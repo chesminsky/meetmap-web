@@ -34,6 +34,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { NotificationsService } from './_common/services/notifications.service';
 import { UserService } from './_common/services/user.service';
 import { ChatComponent } from './chat/chat.component';
+import { GeoService } from './map/geo.service';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { ChatComponent } from './chat/chat.component';
     {
       provide: ErrorHandler,
       useClass: ErrorsHandler
-    }
+    },
+    GeoService
   ],
   bootstrap: [
     AppComponent
