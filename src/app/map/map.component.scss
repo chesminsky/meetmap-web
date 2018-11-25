@@ -3,7 +3,6 @@
 .map-container {
     background-color: #e7eff6;
     position: relative;
-    z-index: 2;
     padding: 5%;
 }
 
@@ -13,6 +12,7 @@
     height: 90vw;
     border-radius: 50%;
     border: 1px solid black;
+    overflow: hidden;
 }
 
 .chat-icon {

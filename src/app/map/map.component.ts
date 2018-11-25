@@ -86,7 +86,9 @@ export class MapComponent implements OnInit, OnDestroy {
   private initMap() {
 
     this.map = new window.google.maps.Map(this.mapRef.nativeElement, {
-      zoom: 17
+      zoom: 17,
+      disableDefaultUI: true,
+      draggable: false,
     });
 
     this.listenGeolocation();
