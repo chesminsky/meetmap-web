@@ -1,6 +1,7 @@
 
 interface Window {
     io;
+    google;
 }
 
 interface User {

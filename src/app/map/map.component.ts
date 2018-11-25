@@ -13,7 +13,7 @@ import { UserService } from '../_common/services/user.service';
 export class MapComponent implements OnInit {
 
   public form: FormGroup;
-  public messages: Array<{sender: string; text: string; }> = [];
+  public messages: Array<{ sender: string; text: string; }> = [];
   public userName: string;
   public room: string;
 
@@ -28,6 +28,9 @@ export class MapComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService
   ) { }
+
+  @ViewChild('map')
+  private mapRef: ElementRef<Element>;
 
   ngOnInit() {
 
@@ -56,6 +59,10 @@ export class MapComponent implements OnInit {
         text: data.message
       });
     });
+
+    setTimeout(() => {
+      this.initMap();
+    });
   }
 
   public onSubmit() {
@@ -73,5 +80,15 @@ export class MapComponent implements OnInit {
       return false;
     }
     return document.activeElement === this.messageElement.nativeElement;
+  }
+
+  private initMap() {
+
+
+    new window.google.maps.Map(this.mapRef.nativeElement, {
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 8
+    });
+
   }
 }
