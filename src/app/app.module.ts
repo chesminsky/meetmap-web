@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { environment } from '../environments/environment';
+
 import {
   MatInputModule,
   MatFormFieldModule,
@@ -36,6 +38,7 @@ import { UserService } from './_common/services/user.service';
 import { ChatComponent } from './chat/chat.component';
 import { GeoService } from './map/geo.service';
 import { MapUtils } from './map/map-utils.service';
+import { GeoMockService } from './map/geo-mock.service';
 
 @NgModule({
   declarations: [
@@ -78,7 +81,10 @@ import { MapUtils } from './map/map-utils.service';
       provide: ErrorHandler,
       useClass: ErrorsHandler
     },
-    GeoService,
+    {
+      provide: GeoService,
+      useClass: environment.production ? GeoService : GeoMockService
+    },
     MapUtils
   ],
   bootstrap: [
