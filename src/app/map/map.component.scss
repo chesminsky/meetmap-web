@@ -91,6 +91,11 @@
     margin-top: -15px;
     margin-left: -15px;
     line-height: 30px;
+    color: #e7eff6;
+
+    &--grey {
+        background-color: #333;
+    }
 }
 
 .marker-wrap {
