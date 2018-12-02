@@ -1,4 +1,4 @@
-<div class="main" *ngIf="room">
+<div class="main" *ngIf="room && userName">
   <div class="map-container" [ngStyle]="{'transform': 'rotate(' + -compassHeading + 'deg)'}">
 
     <div class="map" #map></div>
@@ -19,8 +19,11 @@
       </div>
     </div>
 
-    <div class="marker-wrap" *ngFor="let friend of getFrends()" [ngStyle]="{'transform': 'rotate(' + -getMarkerRotation(friend) + 'deg)'}">
-      <div class="marker" [ngStyle]="{'transform': 'rotate(' + getMarkerRotation(friend) + 'deg)'}">
+    <div class="marker-wrap" *ngFor="let friend of getFrends()" [ngStyle]="{'transform': 'rotate(' + getMarkerRotation(friend) + 'deg)'}">
+      <div class="marker" [ngStyle]="{
+        'transform': 'rotate(' + -getMarkerRotation(friend) + 'deg)',
+        'visibility': isOnMap(friend) ? 'hidden' : 'visible'
+      }">
         {{ getLiteral(friend) }}
       </div>
     </div>

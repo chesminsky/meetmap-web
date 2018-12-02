@@ -31,6 +31,7 @@ export class MapComponent implements OnInit, OnDestroy {
   private socket: Socket;
   private map: google.maps.Map;
   private markers: { [key: string]: google.maps.Marker } = {};
+  private mapRadius = 135;
 
   constructor(
     private route: ActivatedRoute,
@@ -62,14 +63,19 @@ export class MapComponent implements OnInit, OnDestroy {
 
     this.socket.on('gps', (data: GpsEvent) => {
 
+      if (!data.name) {
+        return;
+      }
+
       if (this.markers[data.name]) {
         this.markers[data.name].setMap(null);
       }
 
       this.markers[data.name] = new window.google.maps.Marker({
-        position: data.pos,
-        map: data.name !== this.userName ? this.map : null
+        position: data.pos
       });
+
+      this.markers[data.name].setMap(this.isOnMap(data.name) ? this.map : null);
 
     });
 
@@ -90,6 +96,10 @@ export class MapComponent implements OnInit, OnDestroy {
 
   public get compassHeading() {
     return this.utils.compassHeading;
+  }
+
+  public isOnMap(name: string): boolean {
+    return (name !== this.userName) && (this.getDistance(name) < this.mapRadius); 
   }
 
   private initMap() {
