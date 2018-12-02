@@ -62,16 +62,15 @@ export class MapComponent implements OnInit, OnDestroy {
 
     this.socket.on('gps', (data: GpsEvent) => {
 
-      if (data.name !== this.userName) {
-        if (this.markers[data.name]) {
-          this.markers[data.name].setMap(null);
-        }
-
-        this.markers[data.name] = new window.google.maps.Marker({
-          position: data.pos,
-          map: this.map
-        });
+      if (this.markers[data.name]) {
+        this.markers[data.name].setMap(null);
       }
+
+      this.markers[data.name] = new window.google.maps.Marker({
+        position: data.pos,
+        map: data.name !== this.userName ? this.map : null
+      });
+
     });
 
     setTimeout(() => {
