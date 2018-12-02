@@ -1,17 +1,17 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Socket } from 'socket.io';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { NotificationsService } from '../_common/services/notifications.service';
 import { UserService } from '../_common/services/user.service';
 import { } from 'googlemaps';
 import { GeoService } from './geo.service';
 import { MapUtils } from './map-utils.service';
+import { CustomMarker } from './map-marker';
+import { CdkTreeNodePadding } from '@angular/cdk/tree';
 
 interface GpsEvent {
   name: string;
   pos: {
-    lon: number;
+    lng: number;
     lat: number;
   };
 }
@@ -19,18 +19,17 @@ interface GpsEvent {
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit, OnDestroy {
 
-  public form: FormGroup;
-  public messages: Array<{ sender: string; text: string; }> = [];
   public userName: string;
   public room: string;
 
   private socket: Socket;
   private map: google.maps.Map;
-  private markers: { [key: string]: google.maps.Marker } = {};
+  private markers: { [key: string]: CustomMarker } = {};
   private mapRadius = 135;
 
   constructor(
@@ -71,9 +70,12 @@ export class MapComponent implements OnInit, OnDestroy {
         this.markers[data.name].setMap(null);
       }
 
-      this.markers[data.name] = new window.google.maps.Marker({
-        position: data.pos
-      });
+      this.markers[data.name] = new CustomMarker(
+        new google.maps.LatLng(data.pos.lat, data.pos.lng), 
+        null,
+        {},
+        data.name[0]
+      );
 
       this.markers[data.name].setMap(this.isOnMap(data.name) ? this.map : null);
 
@@ -147,22 +149,30 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   public getDistance(name) {
-    return this.utils.getDistanceFromLatLon(
-      this.markers[this.userName].getPosition().lat(),
-      this.markers[this.userName].getPosition().lng(),
-      this.markers[name].getPosition().lat(),
-      this.markers[name].getPosition().lng()
-    );
+    try {
+      return this.utils.getDistanceFromLatLon(
+        this.markers[this.userName].getPosition().lat(),
+        this.markers[this.userName].getPosition().lng(),
+        this.markers[name].getPosition().lat(),
+        this.markers[name].getPosition().lng()
+      );
+    } catch(e) {
+      console.error('Map error: can not calculate distance');
+    }
   }
 
   public getMarkerRotation(name) {
-    const deg = this.utils.getBearing(
-      this.markers[this.userName].getPosition().lat(),
-      this.markers[this.userName].getPosition().lng(),
-      this.markers[name].getPosition().lat(),
-      this.markers[name].getPosition().lng()
-    );
-    return deg;
+    try {
+      return this.utils.getBearing(
+        this.markers[this.userName].getPosition().lat(),
+        this.markers[this.userName].getPosition().lng(),
+        this.markers[name].getPosition().lat(),
+        this.markers[name].getPosition().lng()
+      );
+    } catch(e) {
+      console.error('Map error: can not calculate direction');
+    }
+
   }
 
 }

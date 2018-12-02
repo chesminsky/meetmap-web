@@ -86,12 +86,17 @@
     height: 30px;
     border-radius: 50%;
     position: absolute;
-    top: 5%;
-    left: 50%;
-    margin-top: -15px;
-    margin-left: -15px;
     line-height: 30px;
     color: #e7eff6;
+    font-size: 18px;
+    text-transform: uppercase;
+
+    &--direction {
+        top: 5%;
+        left: 50%;
+        margin-top: -15px;
+        margin-left: -15px;
+    }
 
     &--grey {
         background-color: #333;

@@ -14,13 +14,13 @@
     </svg>
 
     <div class="marker-wrap">
-      <div class="marker marker--grey">
+      <div class="marker marker--direction marker--grey">
         N
       </div>
     </div>
 
     <div class="marker-wrap" *ngFor="let friend of getFrends()" [ngStyle]="{'transform': 'rotate(' + getMarkerRotation(friend) + 'deg)'}">
-      <div class="marker" [ngStyle]="{
+      <div class="marker marker--direction" [ngStyle]="{
         'transform': 'rotate(' + -getMarkerRotation(friend) + 'deg)',
         'visibility': isOnMap(friend) ? 'hidden' : 'visible'
       }">
