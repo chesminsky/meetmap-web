@@ -7,6 +7,8 @@ import { UserService } from '../_common/services/user.service';
 import { } from 'googlemaps';
 import { GeoService } from './geo.service';
 
+const FULLTILT = (<any>window).FULLTILT;
+
 interface GpsEvent {
   name: string;
   pos: {
@@ -26,6 +28,7 @@ export class MapComponent implements OnInit, OnDestroy {
   public messages: Array<{ sender: string; text: string; }> = [];
   public userName: string;
   public room: string;
+  public compassHeading = 0;
 
   private socket: Socket;
   private map: google.maps.Map;
@@ -73,6 +76,8 @@ export class MapComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.initMap();
     });
+
+    this.listenCompassHeading();
   }
 
   ngOnDestroy() {
@@ -144,7 +149,6 @@ export class MapComponent implements OnInit, OnDestroy {
       this.markers[name].getPosition().lat(),
       this.markers[name].getPosition().lng()
     );
-    console.log(`marker rotation ${deg} deg`);
     return deg;
   }
 
@@ -195,5 +199,36 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private deg2rad(deg) {
     return deg * (Math.PI / 180);
+  }
+
+  private listenCompassHeading() {
+    const promise = FULLTILT.getDeviceOrientation({ 'type': 'world' });
+
+    // Wait for Promise result
+    promise.then((deviceOrientation) => { // Device Orientation Events are supported
+
+      // Register a callback to run every time a new
+      // deviceorientation event is fired by the browser.
+      deviceOrientation.listen(() => {
+
+        // Get the current *screen-adjusted* device orientation angles
+        const currentOrientation = deviceOrientation.getScreenAdjustedEuler();
+
+        // Calculate the current compass heading that the user is 'looking at' (in degrees)
+        const compassHeading = 360 - currentOrientation.alpha;
+
+        // Do something with `compassHeading` here...
+
+        this.compassHeading = compassHeading;
+
+      });
+
+    }).catch((errorMessage) => { // Device Orientation Events are not supported
+
+      console.log(errorMessage);
+
+      // Implement some fallback controls here...
+
+    });
   }
 }

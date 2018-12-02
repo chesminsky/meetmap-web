@@ -1,5 +1,5 @@
 <div class="main" *ngIf="room">
-  <div class="map-container">
+  <div class="map-container" [ngStyle]="{'transform': 'rotate(' + compassHeading + 'deg)'}">
         
     <div class="map" #map></div>
 
