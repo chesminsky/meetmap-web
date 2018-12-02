@@ -52,6 +52,8 @@ export class GeoService {
 
         const error = () => {
             if (location.protocol !== 'https') {
+
+                console.log('gps mocked...');
                 this.isMock = true;
                 const it = this.makeIterator(this.mock);
 
@@ -67,7 +69,7 @@ export class GeoService {
                             speed: 0
                         },
                         timestamp: Date.now()
-                    })
+                    });
                 }, opts.timeout);
             } else {
                 console.error('Error: No GPS data.');

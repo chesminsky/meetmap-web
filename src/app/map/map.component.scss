@@ -67,12 +67,20 @@
     display: block;
     width: 30px;
     background: $accent;
-    // color: white;
     height: 30px;
     border-radius: 50%;
     position: absolute;
-    top: 10px;
+    top: 5%;
     left: 50%;
+    margin-top: -15px;
     margin-left: -15px;
     line-height: 30px;
+}
+
+.marker-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }

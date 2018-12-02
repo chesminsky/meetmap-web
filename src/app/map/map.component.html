@@ -3,8 +3,10 @@
         
     <div class="map" #map></div>
 
-    <div class="marker" *ngFor="let friend of getFrends()" [ngStyle]="{transform: getMarkerRotation(friend)}">
-      {{ getLiteral(friend) }}
+    <div class="marker-wrap" *ngFor="let friend of getFrends()" [ngStyle]="{'transform': 'rotate(' + getMarkerRotation(friend) + 'deg)'}">
+      <div class="marker" [ngStyle]="{'transform': 'rotate(' + getMarkerRotation(friend)*(-1) + 'deg)'}">
+        {{ getLiteral(friend) }}
+      </div>
     </div>
   </div>
 
