@@ -65,6 +65,19 @@
     }
 }
 
+.arrow {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+
+    polygon {
+        fill: $accent;
+    }
+}
+
 .marker {
     text-align: center;
     display: block;

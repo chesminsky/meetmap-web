@@ -3,6 +3,14 @@
         
     <div class="map" #map></div>
 
+     <svg class="arrow" width="50" height="50" xmlns="http://www.w3.org/2000/svg" [ngStyle]="{'transform': 'rotate(' + -compassHeading + 'deg)'}">
+      <g>
+       <rect fill="none" id="canvas_background" height="52" width="52" y="-1" x="-1"/>
+      </g>
+      <g>
+       <polygon stroke="null" transform="rotate(-45 25.641613006591797,29.99438858032226) " stroke-width="13" id="svg_1" points="24.567646026611328,31.428905487060547 10.972557067871094,29.150348663330078 40.3106689453125,15.685882568359375 26.125102996826172,44.302894592285156 "/>
+      </g>
+     </svg>
     <div class="marker-wrap" *ngFor="let friend of getFrends()" [ngStyle]="{'transform': 'rotate(' + getMarkerRotation(friend) + 'deg)'}">
       <div class="marker" [ngStyle]="{'transform': 'rotate(' + getMarkerRotation(friend)*(-1) + 'deg)'}">
         {{ getLiteral(friend) }}
