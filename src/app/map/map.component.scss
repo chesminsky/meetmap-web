@@ -10,9 +10,20 @@
     margin: 0 auto;
     width: 90vw;
     height: 90vw;
-    border-radius: 50%;
-    border: 1px solid black;
-    overflow: hidden;
+}
+
+// circle
+.map:after{
+    content:'';
+    position: absolute;
+    left: 50%; 
+    top: 50%;
+    border-radius: 100%;
+    width:90vw;
+    height:90vw;
+    margin-left: -45vw;
+    margin-top: -45vw;
+    box-shadow: 0px 0px 0px 2000px #e7eff6;;
 }
 
 .chat-icon {
