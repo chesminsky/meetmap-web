@@ -1,6 +1,7 @@
 <div class="navbar">
   <div class="navbar__bars" *ngIf="isAuthorized">
-    <mat-icon>menu</mat-icon>
+    <mat-icon *ngIf="!needBackButton" (click)="back()">arrow_back</mat-icon>
+    <!-- <mat-icon>m,enu</mat-icon> -->
   </div>
   <div class="navbar__icons" *ngIf="isAuthorized">
     <a routerLink="/notifications">
@@ -14,8 +15,6 @@
     </a>
   </div>
   <div class="navbar__logo" [ngClass]="{'padded': isAuthorized}">
-    <a routerLink="/map">
-      meetmap
-    </a>
+    meetmap
   </div>
 </div>

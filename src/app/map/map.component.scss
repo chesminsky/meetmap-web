@@ -30,12 +30,13 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    padding: 5%;
+    margin: 0 5%;
     box-sizing: border-box;
+    z-index: 3;
+    cursor: pointer;
 
     .mat-icon {
         width: 40px;
-        cursor: pointer;
         font-size: 40px;
     }
 }
