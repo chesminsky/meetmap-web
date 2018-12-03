@@ -6,7 +6,7 @@ import { MessagesService } from '../services/messages.service';
 export class ErrorsHandler implements ErrorHandler {
 
     private errors = {
-        'WRONG_CREDENTIALS': 'Неверные имя пользователя или пароль',
+        'WRONG_CREDENTIALS': 'Wrong username or password',
     };
 
     constructor(
@@ -17,7 +17,7 @@ export class ErrorsHandler implements ErrorHandler {
 
         if (!code || !this.errors[code]) {
 
-            return 'Что-то пошло не так...';
+            return 'Something goes wrong...';
         }
 
         return this.errors[code];
