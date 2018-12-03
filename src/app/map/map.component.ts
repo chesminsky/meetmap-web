@@ -37,7 +37,7 @@ export class MapComponent implements OnInit, OnDestroy {
     private router: Router,
     private userService: UserService,
     private geo: GeoService,
-    private utils: MapUtils
+    private utils: MapUtils,
   ) { }
 
   @ViewChild('map')
@@ -49,7 +49,7 @@ export class MapComponent implements OnInit, OnDestroy {
     const room = this.route.snapshot.paramMap.get('room');
 
     if (!room) {
-      this.router.navigate([this.socket.id], {
+      this.router.navigate([this.userService.model._id], {
         relativeTo: this.route
       });
 

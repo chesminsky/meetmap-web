@@ -45,7 +45,7 @@ export class ContactsComponent implements OnInit {
     selected.forEach((id) => {
 
       this.notifications.create({
-        room: this.socket.id,
+        room: this.userService.model._id,
         userId: id
       }).toPromise().then(() => {
         this.messages.showMessage('Приглашение на карту отправлено');
