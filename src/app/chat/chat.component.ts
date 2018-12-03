@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { UserService } from '../_common/services/user.service';
 import { Socket } from 'socket.io';
+
 
 @Component({
   selector: 'app-chat',
@@ -24,10 +24,14 @@ export class ChatComponent implements OnInit {
 
   private socket: Socket;
 
+  @ViewChild('message')
+  private msgRef;
+
   ngOnInit() {
 
     this.socket = this.route.snapshot.data.socket;
     this.room = this.route.snapshot.paramMap.get('room');
+    this.socket.emit('change_room', { room: this.room });
 
     this.form = this.fb.group({
       message: ''
@@ -48,6 +52,7 @@ export class ChatComponent implements OnInit {
     if (text) {
       this.socket.emit('new_message', { message: text, room: this.room });
       this.form.reset();
+      this.msgRef.nativeElement.focus();
     }
   }
 
