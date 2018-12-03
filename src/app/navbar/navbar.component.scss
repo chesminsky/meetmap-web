@@ -81,3 +81,52 @@
     border-radius: 20px;
     font-style: normal;
 }
+
+.sidemenu {
+    background: $dark;
+    top:0;
+    left: -250px;
+    bottom: 0;
+    position: fixed;
+    width: 250px;
+    z-index: 5;
+    color: white;
+
+    transition: .3s ease;
+
+    &.is-active {
+        transform: translateX(250px);
+    }
+
+    .mat-list-item {
+        color: white;
+        cursor: pointer;
+    }
+
+    >header {
+        padding: 20px;
+        border-bottom: 1px solid #ccc;
+        .mat-icon {
+            cursor: pointer;
+            vertical-align: middle;
+            margin-left: 10px;
+            float: right;
+        }
+    }
+}
+
+.layer {
+    top:0;
+    left: 0;
+    bottom: 0;
+    position: fixed;
+    right: 0;
+    z-index: 4;
+    background: black;
+    display: none;
+    opacity: .1;
+
+    &.is-active {
+        display: block;
+    }
+}

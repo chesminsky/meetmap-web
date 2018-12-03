@@ -14,5 +14,9 @@ export class UserService {
         return this.http.get('/api/user');
     }
 
+    logout() {
+        return this.http.get('/auth/logout');
+    }
+
 
 }

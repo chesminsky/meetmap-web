@@ -1,7 +1,7 @@
 <div class="navbar">
   <div class="navbar__bars" *ngIf="isAuthorized">
-    <mat-icon *ngIf="!needBackButton" (click)="back()">arrow_back</mat-icon>
-    <!-- <mat-icon>m,enu</mat-icon> -->
+    <mat-icon *ngIf="showBackButton" (click)="back()">arrow_back</mat-icon>
+    <mat-icon *ngIf="showMenuButton" (click)="toggleMenu()">menu</mat-icon>
   </div>
   <div class="navbar__icons" *ngIf="isAuthorized">
     <a routerLink="/notifications">
@@ -18,3 +18,16 @@
     meetmap
   </div>
 </div>
+
+<div class="sidemenu" [ngClass]="{'is-active': menuVisible}" (click)="menuVisible = false">
+  <header *ngIf="menuVisible">
+    {{userName}}
+    <mat-icon (click)="logout()">exit_to_app</mat-icon>
+  </header>
+  <mat-list>
+    <mat-list-item routerLink="/map">My Map</mat-list-item>
+    <mat-list-item routerLink="/contacts">Contacts </mat-list-item>
+    <mat-list-item routerLink="/notifications">Notifications</mat-list-item>
+  </mat-list>
+</div>
+<div class="layer" [ngClass]="{'is-active': menuVisible}" (click)="menuVisible = false"></div>
