@@ -3,6 +3,8 @@ declare module 'googlemaps';
 interface Window {
     io;
     google;
+    plugin;
+    cordova;
 }
 
 interface User {

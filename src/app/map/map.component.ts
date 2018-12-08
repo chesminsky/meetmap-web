@@ -5,7 +5,7 @@ import { UserService } from '../_common/services/user.service';
 import { } from 'googlemaps';
 import { GeoService } from './geo.service';
 import { MapUtils } from './map-utils.service';
-// import { CustomMarker } from './map-marker';
+import { CustomMarkerFn } from './map-marker';
 
 
 interface GpsEvent {
@@ -16,6 +16,8 @@ interface GpsEvent {
   };
 }
 
+const googleMaps = () => window.cordova ? window.plugin.google.maps : window.google.maps;
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -23,16 +25,16 @@ interface GpsEvent {
   encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit, OnDestroy {
-  /*
+
 
   public userName: string;
   public room: string;
 
   private socket: Socket;
-  private map: google.maps.Map;
-  private markers: { [key: string]: CustomMarker } = {};
+  private map;
+  private markers = {};
   private mapRadius = 135;
-*/
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -41,12 +43,13 @@ export class MapComponent implements OnInit, OnDestroy {
     private utils: MapUtils,
   ) { }
 
-  // @ViewChild('map')
-  // private mapRef: ElementRef<Element>;
+  @ViewChild('map')
+  private mapRef: ElementRef<Element>;
 
   ngOnInit() {
 
-    /*
+    console.log('map component init');
+
     this.socket = this.route.snapshot.data.socket;
     const room = this.route.snapshot.paramMap.get('room');
 
@@ -62,6 +65,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.userName = this.userService.model.name;
     this.socket.emit('change_room', { room });
 
+    /*
     this.socket.on('gps', (data: GpsEvent) => {
 
       if (!data.name) {
@@ -72,8 +76,10 @@ export class MapComponent implements OnInit, OnDestroy {
         this.markers[data.name].setMap(null);
       }
 
-      this.markers[data.name] = new CustomMarker(
-        new google.maps.LatLng(data.pos.lat, data.pos.lng), 
+      const G = googleMaps();
+      const M = CustomMarkerFn();
+      this.markers[data.name] = new M(
+        new G.LatLng(data.pos.lat, data.pos.lng), 
         null,
         {},
         data.name[0]
@@ -83,18 +89,20 @@ export class MapComponent implements OnInit, OnDestroy {
 
     });
 
+    */
+
     setTimeout(() => {
       this.initMap();
     });
 
     this.utils.init();
-    */
+
   }
 
   ngOnDestroy() {
-    //this.geo.stopWatching();
+    this.geo.stopWatching();
   }
-/*
+
   public goToChat() {
     this.router.navigate(['chat', this.room]);
   }
@@ -108,15 +116,17 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private initMap() {
-
-    this.map = new window.google.maps.Map(this.mapRef.nativeElement, {
+    const G = googleMaps();
+    
+    this.map = G.Map.getMap(this.mapRef.nativeElement, {
       zoom: 17,
       disableDefaultUI: true,
       draggable: false,
     });
 
-    this.listenGeolocation();
+    console.log('map initialized');
 
+    this.listenGeolocation();
   }
 
   private listenGeolocation(): void {
@@ -141,6 +151,8 @@ export class MapComponent implements OnInit, OnDestroy {
       timeout: 3000,
       enableHighAccuracy: true
     });
+
+    console.log('start listening geolocations');
   }
 
   public getLiteral(name: string) {
@@ -177,5 +189,5 @@ export class MapComponent implements OnInit, OnDestroy {
     }
 
   }
-*/
+
 }

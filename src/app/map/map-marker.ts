@@ -1,56 +1,62 @@
-export class CustomMarker extends google.maps.OverlayView {
+export function CustomMarkerFn() {
+    const googleMaps = window.cordova ? window.plugin.google.maps : window.google.maps;
 
-    private latlng: google.maps.LatLng;
-    private args;
-    private div: HTMLElement;
-    private liter: string;
+    return class CustomMarker extends googleMaps.OverlayView {
 
-    constructor(latlng, map, args, liter: string) {
-        super();
-        this.latlng = latlng;
-        this.args = args;
-        this.liter = liter;
-        this.setMap(map);
-    }
+        private latlng;
+        private args;
+        private div: HTMLElement;
+        private liter: string;
 
-    draw() {
+        constructor(latlng, map, args, liter: string) {
+            super();
+            this.latlng = latlng;
+            this.args = args;
+            this.liter = liter;
+            this.setMap(map);
+        }
 
-        let div = this.div;
+        draw() {
 
-        if (!div) {
+            let div = this.div;
 
-            div = this.div = document.createElement('div');
-            div.className = 'marker';
-            div.innerHTML = this.liter;
+            if (!div) {
 
-            if (typeof (this.args.marker_id) !== 'undefined') {
-                div.dataset.marker_id = this.args.marker_id;
+                div = this.div = document.createElement('div');
+                div.className = 'marker';
+                div.innerHTML = this.liter;
+
+                if (typeof (this.args.marker_id) !== 'undefined') {
+                    div.dataset.marker_id = this.args.marker_id;
+                }
+
+                googleMaps.event.addDomListener(div, 'click', (event) => {
+                    googleMaps.event.trigger(this, 'click');
+                });
+
+                const panes = this.getPanes();
+                panes.overlayImage.appendChild(div);
             }
 
-            google.maps.event.addDomListener(div, 'click', (event) => {
-                google.maps.event.trigger(this, 'click');
-            });
+            const point = this.getProjection().fromLatLngToDivPixel(this.latlng);
 
-            const panes = this.getPanes();
-            panes.overlayImage.appendChild(div);
+            if (point) {
+                div.style.left = point.x + 'px';
+                div.style.top = point.y + 'px';
+            }
         }
 
-        const point = this.getProjection().fromLatLngToDivPixel(this.latlng);
-
-        if (point) {
-            div.style.left = point.x + 'px';
-            div.style.top = point.y + 'px';
+        remove() {
+            if (this.div) {
+                this.div.parentNode.removeChild(this.div);
+                this.div = null;
+            }
         }
-    }
 
-    remove() {
-        if (this.div) {
-            this.div.parentNode.removeChild(this.div);
-            this.div = null;
+        getPosition() {
+            return this.latlng;
         }
-    }
-
-    getPosition() {
-        return this.latlng;
     }
 }
+
+

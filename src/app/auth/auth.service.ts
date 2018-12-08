@@ -15,6 +15,10 @@ export class AuthService {
         return this.http.post(e.baseUrl + 'auth/local', { username, password});
     }
 
+    google() {
+        this.http.get(e.baseUrl + 'auth/google');
+    }
+
     isAuthorized() {
         return this.userService.model;
     }

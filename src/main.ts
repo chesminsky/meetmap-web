@@ -33,12 +33,14 @@ const addSript = (baseUrl, url) => {
 }
 
 addSript(environment.baseUrl, 'socket.io/socket.io.js').then(() => {
-  if (window['cordova']) {
+  if (window.cordova) {
     document.addEventListener('deviceready', () => {
+      console.log('device ready');
       bootstrap();
     });
     
   } else {
+    console.log('cordova not found');
     bootstrap();
   }
 });

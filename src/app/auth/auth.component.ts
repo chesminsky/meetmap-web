@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
-import { environment as e }  from '../../environments/environment';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-auth',
@@ -18,7 +16,6 @@ export class AuthComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private location: Location
   ) { }
 
   ngOnInit() {
@@ -39,7 +36,7 @@ export class AuthComponent implements OnInit {
   }
 
   public google() {
-    this.location.go(e.baseUrl + '/auth/google');
+    this.auth.google();
   }
 
 }

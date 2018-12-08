@@ -18,7 +18,7 @@ export class SocketConnectResolver implements Resolve<Socket> {
     const { io } = window;
 
     const userName = this.userService.model.name;
-    const socket: Socket = io.connect(e.baseUrl + '/');
+    const socket: Socket = io.connect(e.baseUrl);
     socket.emit('change_username', { username: userName });
 
     const promiseConnect = () => new Promise((resolve) => socket.on('connect', () => {
