@@ -11,7 +11,7 @@ export class MapUtils {
             return;
         }
 
-        this.listenCompassHeading();
+        //this.listenCompassHeading();
         this.initialized = true;
     }
 

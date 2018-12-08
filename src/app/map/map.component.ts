@@ -5,7 +5,7 @@ import { UserService } from '../_common/services/user.service';
 import { } from 'googlemaps';
 import { GeoService } from './geo.service';
 import { MapUtils } from './map-utils.service';
-import { CustomMarkerFn } from './map-marker';
+// import { CustomMarkerFn } from './map-marker';
 
 
 interface GpsEvent {
@@ -65,31 +65,26 @@ export class MapComponent implements OnInit, OnDestroy {
     this.userName = this.userService.model.name;
     this.socket.emit('change_room', { room });
 
-    /*
     this.socket.on('gps', (data: GpsEvent) => {
+      
+      console.log('new gps event', data);
 
       if (!data.name) {
         return;
       }
 
-      if (this.markers[data.name]) {
-        this.markers[data.name].setMap(null);
+      if (!this.markers[data.name]) {
+        this.markers[data.name] = this.map.addMarker({
+          position: data.pos,
+          visible: this.isOnMap(data.name)
+        });
+      } else {
+        this.markers[data.name].setPosition(data.pos)
       }
 
-      const G = googleMaps();
-      const M = CustomMarkerFn();
-      this.markers[data.name] = new M(
-        new G.LatLng(data.pos.lat, data.pos.lng), 
-        null,
-        {},
-        data.name[0]
-      );
-
-      this.markers[data.name].setMap(this.isOnMap(data.name) ? this.map : null);
-
+      this.markers[data.name].setVisible(this.isOnMap(data.name));
     });
 
-    */
 
     setTimeout(() => {
       this.initMap();
@@ -117,11 +112,10 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private initMap() {
     const G = googleMaps();
+    G.environment.setBackgroundColor('#e7eff6');
     
     this.map = G.Map.getMap(this.mapRef.nativeElement, {
-      zoom: 17,
-      disableDefaultUI: true,
-      draggable: false,
+      zoom: 17
     });
 
     console.log('map initialized');
@@ -139,12 +133,18 @@ export class MapComponent implements OnInit, OnDestroy {
         lng: longitude
       };
 
+      console.log('new location', pos);
+
       this.socket.emit('gps', {
         pos,
         room: this.room
       });
 
-      this.map.setCenter(pos);
+      this.map.animateCamera({
+        target: pos,
+        duration: 1000,
+        zoom: 17
+      });
     };
 
     this.geo.watchPosition(success, {
@@ -166,10 +166,10 @@ export class MapComponent implements OnInit, OnDestroy {
   public getDistance(name) {
     try {
       return this.utils.getDistanceFromLatLon(
-        this.markers[this.userName].getPosition().lat(),
-        this.markers[this.userName].getPosition().lng(),
-        this.markers[name].getPosition().lat(),
-        this.markers[name].getPosition().lng()
+        this.markers[this.userName].getPosition().lat,
+        this.markers[this.userName].getPosition().lng,
+        this.markers[name].getPosition().lat,
+        this.markers[name].getPosition().lng
       );
     } catch(e) {
       console.error('Map error: can not calculate distance');
@@ -179,10 +179,10 @@ export class MapComponent implements OnInit, OnDestroy {
   public getMarkerRotation(name) {
     try {
       return this.utils.getBearing(
-        this.markers[this.userName].getPosition().lat(),
-        this.markers[this.userName].getPosition().lng(),
-        this.markers[name].getPosition().lat(),
-        this.markers[name].getPosition().lng()
+        this.markers[this.userName].getPosition().lat,
+        this.markers[this.userName].getPosition().lng,
+        this.markers[name].getPosition().lat,
+        this.markers[name].getPosition().lng
       );
     } catch(e) {
       console.error('Map error: can not calculate direction');
