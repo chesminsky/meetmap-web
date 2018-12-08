@@ -8,6 +8,39 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+const bootstrap = () => {
+  console.log('meetmap starting...');
+  console.log('server url is: ', environment.baseUrl);
+  platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.error(err));
+}
+
+
+const addSript = (baseUrl, url) => {
+  return new Promise(function(resolve, reject) {
+
+    const el = document.createElement('script');
+    el.src = baseUrl + url;
+    document.body.appendChild(el);
+
+    el.onload = function() {
+      resolve(url);
+    };
+
+    el.onerror = function() {
+      reject(url);
+    };
+  });
+}
+
+addSript(environment.baseUrl, 'socket.io/socket.io.js').then(() => {
+  if (window['cordova']) {
+    document.addEventListener('deviceready', () => {
+      bootstrap();
+    });
+    
+  } else {
+    bootstrap();
+  }
+});
+
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../_common/services/user.service';
+import { environment as e }  from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +12,7 @@ export class AuthService {
     ) { }
 
     login(username: string, password: string) {
-        return this.http.post('/auth/local', { username, password});
+        return this.http.post(e.baseUrl + 'auth/local', { username, password});
     }
 
     isAuthorized() {

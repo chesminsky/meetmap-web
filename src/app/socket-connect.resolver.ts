@@ -3,6 +3,7 @@ import { Resolve } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { NotificationsService } from './_common/services/notifications.service';
 import { UserService } from './_common/services/user.service';
+import { environment as e }  from '../environments/environment'
 
 @Injectable()
 export class SocketConnectResolver implements Resolve<Socket> {
@@ -17,7 +18,7 @@ export class SocketConnectResolver implements Resolve<Socket> {
     const { io } = window;
 
     const userName = this.userService.model.name;
-    const socket: Socket = io.connect('/');
+    const socket: Socket = io.connect(e.baseUrl + '/');
     socket.emit('change_username', { username: userName });
 
     const promiseConnect = () => new Promise((resolve) => socket.on('connect', () => {

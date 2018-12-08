@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'socket.io';
 import { HttpClient } from '@angular/common/http';
+import { environment as e }  from '../../../environments/environment';
 
 @Injectable()
 export class NotificationsService {
@@ -30,14 +31,14 @@ export class NotificationsService {
     }
 
     public getAll() {
-        return this.http.get<Array<AppNotification>>('/api/notifications');
+        return this.http.get<Array<AppNotification>>(e.baseUrl + 'api/notifications');
     }
 
     public create(obj: AppNotification) {
-        return this.http.post<Array<AppNotification>>('/api/notifications', obj);
+        return this.http.post<Array<AppNotification>>(e.baseUrl + 'api/notifications', obj);
     }
 
     public put(obj: AppNotification) {
-        return this.http.put<Array<AppNotification>>(`/api/notifications/${obj._id}`, obj);
+        return this.http.put<Array<AppNotification>>(e.baseUrl + `api/notifications/${obj._id}`, obj);
     }
 }

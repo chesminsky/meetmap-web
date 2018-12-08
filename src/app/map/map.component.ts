@@ -5,8 +5,8 @@ import { UserService } from '../_common/services/user.service';
 import { } from 'googlemaps';
 import { GeoService } from './geo.service';
 import { MapUtils } from './map-utils.service';
-import { CustomMarker } from './map-marker';
-import { CdkTreeNodePadding } from '@angular/cdk/tree';
+// import { CustomMarker } from './map-marker';
+
 
 interface GpsEvent {
   name: string;
@@ -23,6 +23,7 @@ interface GpsEvent {
   encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit, OnDestroy {
+  /*
 
   public userName: string;
   public room: string;
@@ -31,7 +32,7 @@ export class MapComponent implements OnInit, OnDestroy {
   private map: google.maps.Map;
   private markers: { [key: string]: CustomMarker } = {};
   private mapRadius = 135;
-
+*/
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -40,11 +41,12 @@ export class MapComponent implements OnInit, OnDestroy {
     private utils: MapUtils,
   ) { }
 
-  @ViewChild('map')
-  private mapRef: ElementRef<Element>;
+  // @ViewChild('map')
+  // private mapRef: ElementRef<Element>;
 
   ngOnInit() {
 
+    /*
     this.socket = this.route.snapshot.data.socket;
     const room = this.route.snapshot.paramMap.get('room');
 
@@ -86,12 +88,13 @@ export class MapComponent implements OnInit, OnDestroy {
     });
 
     this.utils.init();
+    */
   }
 
   ngOnDestroy() {
-    this.geo.stopWatching();
+    //this.geo.stopWatching();
   }
-
+/*
   public goToChat() {
     this.router.navigate(['chat', this.room]);
   }
@@ -174,5 +177,5 @@ export class MapComponent implements OnInit, OnDestroy {
     }
 
   }
-
+*/
 }
