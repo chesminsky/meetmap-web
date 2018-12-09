@@ -66,7 +66,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.socket.emit('change_room', { room });
 
     this.socket.on('gps', (data: GpsEvent) => {
-      
+
       console.log('new gps event', data);
 
       if (!data.name) {
@@ -79,7 +79,7 @@ export class MapComponent implements OnInit, OnDestroy {
           visible: this.isOnMap(data.name)
         });
       } else {
-        this.markers[data.name].setPosition(data.pos)
+        this.markers[data.name].setPosition(data.pos);
       }
 
       this.markers[data.name].setVisible(this.isOnMap(data.name));
@@ -107,13 +107,13 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   public isOnMap(name: string): boolean {
-    return (name !== this.userName) && (this.getDistance(name) < this.mapRadius); 
+    return (name !== this.userName) && (this.getDistance(name) < this.mapRadius);
   }
 
   private initMap() {
     const G = googleMaps();
     G.environment.setBackgroundColor('#e7eff6');
-    
+
     this.map = G.Map.getMap(this.mapRef.nativeElement, {
       zoom: 17
     });
@@ -174,7 +174,7 @@ export class MapComponent implements OnInit, OnDestroy {
         this.markers[name].getPosition().lat,
         this.markers[name].getPosition().lng
       );
-    } catch(e) {
+    } catch (e) {
       console.error('Map error: can not calculate distance');
     }
   }
@@ -190,7 +190,7 @@ export class MapComponent implements OnInit, OnDestroy {
       );
 
       return b;
-    } catch(e) {
+    } catch (e) {
       console.error('Map error: can not calculate direction');
     }
 
