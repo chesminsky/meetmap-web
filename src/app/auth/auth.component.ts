@@ -35,8 +35,4 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  public google() {
-    this.auth.google();
-  }
-
 }
