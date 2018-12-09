@@ -143,8 +143,11 @@ export class MapComponent implements OnInit, OnDestroy {
       this.map.animateCamera({
         target: pos,
         duration: 1000,
-        zoom: 17
+        zoom: 17,
+        bearing: -this.compassHeading
       });
+
+      console.log('set compass heading: ', this.compassHeading);
     };
 
     this.geo.watchPosition(success, {
@@ -178,12 +181,15 @@ export class MapComponent implements OnInit, OnDestroy {
 
   public getMarkerRotation(name) {
     try {
-      return this.utils.getBearing(
+
+      const b = this.utils.getBearing(
         this.markers[this.userName].getPosition().lat,
         this.markers[this.userName].getPosition().lng,
         this.markers[name].getPosition().lat,
         this.markers[name].getPosition().lng
       );
+
+      return b;
     } catch(e) {
       console.error('Map error: can not calculate direction');
     }

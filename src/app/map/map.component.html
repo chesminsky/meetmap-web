@@ -1,9 +1,9 @@
 <div class="main" *ngIf="room && userName">
-  <div class="map-container" [ngStyle]="{'transform': 'rotate(' + -compassHeading + 'deg)'}">
+  <div class="map-container">
 
     <div class="map" #map></div>
 
-    <svg class="arrow" width="50" height="50" xmlns="http://www.w3.org/2000/svg" [ngStyle]="{'transform': 'rotate(' + compassHeading + 'deg)'}">
+    <svg class="arrow" width="50" height="50" xmlns="http://www.w3.org/2000/svg">
       <g>
         <rect fill="none" id="canvas_background" height="52" width="52" y="-1" x="-1" />
       </g>
@@ -13,13 +13,13 @@
       </g>
     </svg>
 
-    <div class="marker-wrap">
+    <div class="marker-wrap" [ngStyle]="{'transform': 'rotate(' + -compassHeading + 'deg)'}">
       <div class="marker marker--direction marker--grey">
         N
       </div>
     </div>
 
-    <div class="marker-wrap" *ngFor="let friend of getFrends()" [ngStyle]="{'transform': 'rotate(' + getMarkerRotation(friend) + 'deg)'}">
+    <div class="marker-wrap" *ngFor="let friend of getFrends()" [ngStyle]="{'transform': 'rotate(' + (getMarkerRotation(friend) - compassHeading) + 'deg)'}">
       <div class="marker marker--direction" [ngStyle]="{
         'transform': 'rotate(' + -getMarkerRotation(friend) + 'deg)',
         'visibility': isOnMap(friend) ? 'hidden' : 'visible'
